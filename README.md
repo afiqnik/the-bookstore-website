@@ -1,1 +1,0 @@
-Khairan gay as fuck

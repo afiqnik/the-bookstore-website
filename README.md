@@ -1,1 +1,1 @@
-Nikki my Niggy
+Khairan gay as fuck

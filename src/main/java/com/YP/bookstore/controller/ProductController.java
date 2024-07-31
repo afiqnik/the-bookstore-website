@@ -52,7 +52,25 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/bestseller")
+    @GetMapping("/new-arrivals")
+    public String viewNewArrivalsProducts(Model model) {
+        try {
+            List<Product> products = productService.getNewArrivalsProducts();
+            if (products == null || products.isEmpty()) {
+                model.addAttribute("errorMessage", "No new arrivals products found");
+                return "error";
+            }
+            logger.info("New arrivals products retrieved: " + products.size() + " products");
+            model.addAttribute("products", products);
+            return "newArrivals";
+        } catch (Exception e) {
+            logger.error("Error retrieving new arrivals products", e);
+            model.addAttribute("errorMessage", "Error retrieving new arrivals products");
+            return "error";
+        }
+    }
+
+    @GetMapping("/best-sellers")
     public String viewBestsellerProducts(Model model) {
         try {
             List<Product> products = productService.getBestsellerProducts();
@@ -62,7 +80,7 @@ public class ProductController {
             }
             logger.info("Bestseller products retrieved: " + products.size() + " products");
             model.addAttribute("products", products);
-            return "bestseller";
+            return "bestSellers";
         } catch (Exception e) {
             logger.error("Error retrieving bestseller products", e);
             model.addAttribute("errorMessage", "Error retrieving bestseller products");

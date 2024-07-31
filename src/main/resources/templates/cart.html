@@ -1,38 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
-    <!-- Add your CSS stylesheets here -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Bookstore Cart</title>
 </head>
 <body>
-    <h1>Your Cart</h1>
-    <table>
+
+<div class="container">
+    <table id="cart" class="table table-hover table-condensed">
         <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
+        </tr>
         </thead>
         <tbody>
-            <!-- Loop through your cart items (assuming you have a List<Item> in your Spring model) -->
-            <tr th:each="item : ${cartItems}">
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.price}"></td>
-                <td>
-                    <input type="number" min="1" th:value="${item.quantity}" th:attr="data-item-id=${item.id}" class="quantity-input">
-                </td>
-                <td th:text="${item.price * item.quantity}"></td>
-                <td>
-                    <a th:href="@{/removeItem(item=${item.id})}">Remove</a>
-                </td>
-            </tr>
+        <tr>
+            <td data-th="Product">
+                <div class="row">
+                    <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive" /></div>
+                    <div class="col-sm-10">
+                        <h4 class="nomargin">Product 1</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </td>
+            <td data-th="Price">$5.11</td>
+            <td data-th="Quantity">
+                <label>
+                    <input type="number" class="form-control text-center" value="1">
+                </label>
+            </td>
+            <td data-th="Subtotal" class="text-center">$5.11</td>
+            <td class="actions" data-th="">
+                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
         </tbody>
+        <tfoot>
+        <tr class="visible-xs">
+            <td class="text-center"><strong>Total $ 5.11</strong></td>
+        </tr>
+        <tr>
+            <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td colspan="2" class="hidden-xs"></td>
+            <td class="hidden-xs text-center"><strong>Total $ 5.11</strong></td>
+            <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+        </tr>
+        </tfoot>
     </table>
-    <!-- Add your JavaScript for quantity adjustments here -->
+</div>
 </body>
 </html>

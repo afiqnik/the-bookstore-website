@@ -21,5 +21,7 @@ public class User {
     // @Length(max = 16)
     private String username;
     private String password;
+    private String email;
+    private String address;
 
 }

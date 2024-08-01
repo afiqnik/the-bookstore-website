@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -17,12 +18,12 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "userID",unique = true,nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userID",unique = false,nullable = false)
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "productID")
+    @JoinColumn(name = "productID",nullable = false)
     private Product product;
 
     private Integer quantity;

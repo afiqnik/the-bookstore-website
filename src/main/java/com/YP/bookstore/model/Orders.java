@@ -27,7 +27,7 @@ public class Orders {
     )
     private List<Product> products;
     @ManyToOne
-    @JoinColumn(name="userID",unique = true,nullable = false)
+    @JoinColumn(name="userID",unique = false,nullable = false)
     private User user;
     private Integer price;
     private Integer totalprice;

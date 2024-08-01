@@ -1,10 +1,11 @@
 package com.YP.bookstore.controller;
 
-// import java.security.Principal;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.YP.bookstore.model.Product;
+import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,38 +26,21 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProductService productService;
+
     @ModelAttribute
     public void getUserDeets(Model model){
         List<User> user = userService.getAllUsers();
         model.addAttribute("user", user);
     }
     @GetMapping("/")
-    public String index(/*Model model*/){
-        List <User> user = userService.getAllUsers();
-        // model.addAttribute("user", user);
+    public String listProducts(Model model) {
+        List<Product> newArrivals = productService.getNewArrivalsProducts();
+        List<Product> bestSellers = productService.getBestsellerProducts();
+        model.addAttribute("newArrivals", newArrivals);
+        model.addAttribute("bestSellers", bestSellers);
+
         return "index";
-    }
-
-    @GetMapping("/home")
-    public String home(/*Model model*/){
-        try{
-            List<User> user = userService.getAllUsers();
-            logger.info("Users retrieved: "+user.size() );
-            // model.addAttribute("user", user);
-        }
-        catch(Exception e){
-            return "home";
-        }
-
-        return "home";
-    }
-
-    @GetMapping("/login")
-    public String login(){
-
-
-
-
-        return "login";
     }
 }

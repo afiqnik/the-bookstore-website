@@ -1,10 +1,12 @@
-// package com.YP.bookstore.repository;
+package com.YP.bookstore.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.YP.bookstore.model.Cart;
+import com.YP.bookstore.model.CartItem;
 
-// public interface CartRepository extends JpaRepository<Cart ,Long> {
+public interface CartRepository extends JpaRepository<CartItem ,Long> {
     
-//     public Cart findById(Integer id); 
-// }
+    public CartItem findById(Integer id); 
+
+    public CartItem findByProductIdAndUserId(Long productID,Long userID);
+}

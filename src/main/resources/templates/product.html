@@ -32,7 +32,7 @@
             <p><strong>ISBN:</strong> <span th:text="${product.isbnIdentifier}">ISBN Identifier</span></p>
             <p th:text="${product.description}">Description</p>
             <a href="/products" class="btn btn-secondary">Back to Products</a>
-            <a href="/cart" class="btn btn-secondary">Add to cart</a>
+            <a th:href="@{/addToCart/{id}(id=${product.id})}" class="btn btn-secondary">Add to cart</a>
         </div>
     </div>
 </div>

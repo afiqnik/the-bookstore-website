@@ -35,4 +35,9 @@ public class ProductService {
     //     return cartRepository.findByProductIDandUserID(null, null);
     // }
 
+    // Method to get a product by its new arrivals status
+    public List<Product> getNewArrivalsProducts() {
+        return productRepository.findByIsNewArrivalTrue();
+    }
+
 }

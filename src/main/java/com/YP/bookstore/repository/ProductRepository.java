@@ -1,7 +1,7 @@
 package com.YP.bookstore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.YP.bookstore.entity.Product;
+import com.YP.bookstore.model.Product;
 
 import java.util.List;
 

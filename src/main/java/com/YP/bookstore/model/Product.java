@@ -1,4 +1,4 @@
-package com.YP.bookstore.entity;
+package com.YP.bookstore.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +21,7 @@ public class Product {
     private String description;
     private String isbnIdentifier;
     private Integer pageCount;
+    private Integer quantity;
     private String printType;
     private String categories;
     private Double averageRating;

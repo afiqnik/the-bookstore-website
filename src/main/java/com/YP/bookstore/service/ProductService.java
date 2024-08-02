@@ -1,5 +1,6 @@
 package com.YP.bookstore.service;
 
+import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.model.Product;
 import com.YP.bookstore.repository.CartRepository;
 import com.YP.bookstore.repository.ProductRepository;
@@ -30,14 +31,9 @@ public class ProductService {
     public List<Product> getBestsellerProducts() {
         return productRepository.findByIsBestsellerTrue();
     }
-    
-    // public List<Product> getProductforUser(){
-    //     return cartRepository.findByProductIDandUserID(null, null);
-    // }
 
     // Method to get a product by its new arrivals status
     public List<Product> getNewArrivalsProducts() {
         return productRepository.findByIsNewArrivalTrue();
     }
-
 }

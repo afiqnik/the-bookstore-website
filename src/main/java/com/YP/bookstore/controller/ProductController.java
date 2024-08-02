@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,12 +99,15 @@ public class ProductController {
 
     @GetMapping("/cart")
     public String viewCarts(Model model){
+        Double total = 0.0;
         logger.info("Viewing cart after adding product");
         List<CartItem> cart = cartService.getAllCarts();
         model.addAttribute("cart", cart);
         for(CartItem troli:cart){
             logger.info("Product :"+troli.getProduct().getId()+" retrieved with quantity: "+troli.getQuantity());
+            total+=troli.getPrice();
         }
+        model.addAttribute("total",total);
 
         return "/cart";
     }

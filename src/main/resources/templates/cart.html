@@ -75,11 +75,8 @@
             <form action="/update-cart" method="post">
                 <td data-th="Quantity">
                     <label>
-                        <input type="number" class="form-control text-center" name="quantity">
+                        <input type="number" class="form-control text-center" th:value="${carts.quantity}">
                     </label>
-                </td>
-                <td>
-                    <button type="submit">Update Cart</button>
                 </td>
             </form>
             

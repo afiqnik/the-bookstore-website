@@ -33,6 +33,13 @@ public class CartService {
         return cart;
     }
 
+    // public CartItem getProductByCart(Integer id){
+    //     Product product = productRepository.
+    //     CartItem 
+
+    //     return cart;
+    // }
+
     public List<CartItem> getAllCarts() {
         return cartRepository.findAll();
         

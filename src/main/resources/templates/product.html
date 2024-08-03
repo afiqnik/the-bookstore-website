@@ -3,6 +3,12 @@
 <head>
     <title>Product Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}"/>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/product.css}" rel="stylesheet">
     <style>
         h2 {
             font-size: 2rem;
@@ -13,32 +19,39 @@
 <body>
 
 <!-- Navbar -->
-<div th:replace="navbar :: navbarTemplate"></div>
+<div th:replace="~{navbar :: navbarTemplate}"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2 th:text="${product.title}">Book Title</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <img th:src="${product.imageLinks}" class="img-fluid" alt="Book Cover">
-        </div>
-        <div class="col-md-6">
-            <p><strong>Author:</strong> <span th:text="${product.author}">Author Name</span></p>
-            <p><strong>Publisher:</strong> <span th:text="${product.publisher}">Publisher</span></p>
-            <p><strong>Publication Date:</strong> <span th:text="${#dates.format(product.publishedDate, 'yyyy-MM-dd')}">Publication Date</span></p>
-            <p><strong>Page Count:</strong> <span th:text="${product.pageCount}">Page Count</span></p>
-            <p><strong>Language:</strong> <span th:text="${product.language}">Language</span></p>
-            <p><strong>Category:</strong> <span th:text="${product.categories}">Categories</span></p>
-            <p><strong>Price:</strong> <span th:text="${product.listPrice} + ' ' + ${product.listPriceCurrency}">Price</span></p>
-            <p><strong>ISBN:</strong> <span th:text="${product.isbnIdentifier}">ISBN Identifier</span></p>
-            <p th:text="${product.description}">Description</p>
-            <a href="/products" class="btn btn-secondary">Back to Products</a>
-            <a th:href="@{/addToCart/{id}(id=${product.id})}" class="btn btn-secondary">Add to cart</a>
-        </div>
-    </div>
-</div>
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6 d-flex justify-content-center" >
+                        <img class="card-img-top mb-5 mb-md-0 " th:src="${product.imageLinks}" alt="Book Cover">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="small mb-1">
+                            <p>ISBN: <span th:text="${product.isbnIdentifier}">ISBN Identifier</span></p>
+                        </div>
+                        <h2 class="display-5 fw-bolder" th:text="${product.title}">Book Title</h2>
+                        <div class="fs-5 mb-5">
+                            <span class="text-decoration-line-through" th:text="${product.listPriceCurrency} + ' ' + ${product.listPrice}">$45.00</span>
+                            <span th:text="${product.retailPriceCurrency} + ' ' + ${product.retailPrice}">$40.00</span>
+                        </div>
+                        <h3 class="lead"><strong>Author:</strong> <span th:text="${product.author}">Author Name</span></h3>
+                        <h3 class="lead"><strong>Publisher:</strong> <span th:text="${product.publisher}">Publisher</span></h3>
+                        <h3 class="lead"><strong>Publication Date:</strong> <span th:text="${#dates.format(product.publishedDate, 'yyyy-MM-dd')}">Publication Date</span></h3>
+                        <h3 class="lead"><strong>Page Count:</strong> <span th:text="${product.pageCount}">Page Count</span></h3>
+                        <h3 class="lead"><strong>Language:</strong> <span th:text="${product.language}">Language</span></h3>
+                        <h3 class="lead"><strong>Category:</strong> <span th:text="${product.categories}">Categories</span></h3>
+                        <h3 class="lead" th:text="${product.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</h3>
+                        <div class="d-flex">
+                            <a  class="btn btn-outline-dark flex-shrink-0" href="/products">Back to Products</a>
+                            <a class="btn btn-outline-dark flex-shrink-0" th:href="@{/addToCart/{id}(id=${product.id})}"><i class="bi-cart-fill me-1"></i>Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/index.css}" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <title>YP Bookstore</title>
 </head>
 <body>
@@ -13,10 +14,19 @@
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
 <!-- Hero Banner -->
-<div class="jumbotron text-center">
-    <h1>Welcome to Our Bookstore!</h1>
-    <p>Discover your next great read.</p>
-    <a href="/new-arrivals" class="btn btn-primary">Shop New Arrivals</a>
+<div class="jumbotron">
+    <div class="overlay">
+        <div id="slideshow" class="slideshow">
+            <img th:src="@{/images/homebanner1.png}" alt="Banner 1">
+            <img th:src="@{/images/homebanner2.png}" alt="Banner 2">
+            <img th:src="@{/images/homebanner3.jpg}" alt="Banner 3">
+            <img th:src="@{/images/homebanner4.jpg}" alt="Banner 4">
+        </div>
+        <div class="content">
+            <h1>Welcome to Our Bookstore!</h1>
+            <p>Discover your next great read.</p>
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -58,12 +68,6 @@
         <a href="/best-sellers" class="btn btn-secondary">View More in this Section</a>
     </section>
 
-    <!-- Social Media Feeds Section -->
-    <!-- <section class="mt-4">
-        <h2>Follow Us</h2> -->
-        <!-- Social media widget embeds here -->
-    </section>
-
     <!-- Footer -->
     <footer class="mt-4 text-center">
         <p>&copy; 2024 Bookstore</p>
@@ -72,5 +76,6 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

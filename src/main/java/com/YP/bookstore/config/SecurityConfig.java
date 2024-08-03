@@ -28,13 +28,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/products").permitAll()
-                        .requestMatchers("/product/**").permitAll()
-                        .requestMatchers("/best-sellers").permitAll()
-                        .requestMatchers("/index").permitAll()
-                        .requestMatchers("/new-arrivals").permitAll()
-                        .requestMatchers("/cart").permitAll())
+
+                        .requestMatchers("/cart").authenticated()
+                        .requestMatchers("/**").permitAll())
+
                 .formLogin(formlogin -> formlogin.loginPage("/login").loginProcessingUrl("/login")
                         .defaultSuccessUrl("/index", true)
                         .permitAll()

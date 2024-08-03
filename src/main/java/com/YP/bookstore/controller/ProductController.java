@@ -1,6 +1,6 @@
 package com.YP.bookstore.controller;
 
-import com.YP.bookstore.entity.Product;
+import com.YP.bookstore.model.Product;
 import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

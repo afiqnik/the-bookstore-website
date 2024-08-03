@@ -1,6 +1,6 @@
 package com.YP.bookstore.service;
 
-import com.YP.bookstore.entity.User;
+import com.YP.bookstore.model.User;
 import com.YP.bookstore.entity.UserDto;
 import com.YP.bookstore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

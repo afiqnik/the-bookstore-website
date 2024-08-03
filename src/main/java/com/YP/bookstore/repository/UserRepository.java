@@ -1,6 +1,6 @@
 package com.YP.bookstore.repository;
 
-import com.YP.bookstore.entity.User;
+import com.YP.bookstore.model.User;
 import com.YP.bookstore.entity.UserDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 

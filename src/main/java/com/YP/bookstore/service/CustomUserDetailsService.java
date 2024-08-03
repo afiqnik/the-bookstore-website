@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.YP.bookstore.entity.CustomUserDetails;
-import com.YP.bookstore.entity.User;
+import com.YP.bookstore.model.User;
 import com.YP.bookstore.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

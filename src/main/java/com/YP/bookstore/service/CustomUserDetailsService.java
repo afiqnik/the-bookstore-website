@@ -3,7 +3,7 @@ package com.YP.bookstore.service;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.YP.bookstore.entity.CustomUserDetails;
+import com.YP.bookstore.model.CustomUserDetails;
 import com.YP.bookstore.model.User;
 import com.YP.bookstore.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;

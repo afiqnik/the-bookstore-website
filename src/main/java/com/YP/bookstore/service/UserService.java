@@ -1,7 +1,7 @@
 package com.YP.bookstore.service;
 
 import com.YP.bookstore.model.User;
-import com.YP.bookstore.entity.UserDto;
+import com.YP.bookstore.model.UserDto;
 
 public interface UserService {
     User findByUsername(String username);

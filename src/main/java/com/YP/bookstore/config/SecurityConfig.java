@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/**").permitAll())
 
                 .formLogin(formlogin -> formlogin.loginPage("/login").loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/index", true)
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout.invalidateHttpSession(true)

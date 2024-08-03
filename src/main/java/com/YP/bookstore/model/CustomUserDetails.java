@@ -1,4 +1,4 @@
-package com.YP.bookstore.entity;
+package com.YP.bookstore.model;
 
 import java.util.Collection;
 

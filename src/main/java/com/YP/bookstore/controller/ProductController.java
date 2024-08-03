@@ -1,6 +1,7 @@
 package com.YP.bookstore.controller;
 
 import com.YP.bookstore.model.Product;
+import com.YP.bookstore.service.CartService;
 import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ProductController {
@@ -19,6 +21,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/products")
     public String listProducts(Model model) {
@@ -86,6 +91,16 @@ public class ProductController {
             model.addAttribute("errorMessage", "Error retrieving bestseller products");
             return "error";
         }
+    }
+
+    @RequestMapping("/addToCart/{id}")
+    public String addtoCart(@PathVariable Long id) {
+        Product product = productService.getProductById(id);
+
+        logger.info("Adding product " + product.getId() + " to cart");
+
+        cartService.addtoCart(id, 1L);
+        return "redirect:/cart";
     }
 
 }

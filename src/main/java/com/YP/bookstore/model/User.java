@@ -12,15 +12,17 @@ import lombok.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_gen")
-    @TableGenerator(
-            name = "user_gen",
-            table = "users_seq",
-            pkColumnName = "sequence_name",
-            valueColumnName = "next_val",
-            pkColumnValue = "user_seq",
-            allocationSize = 1 // Set the allocation size to 1 to prevent jumps
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen")
+    @SequenceGenerator(name = "mySeqGen", sequenceName = "my_sequence_name", allocationSize = 1)
+
+//    @TableGenerator(
+//            name = "user_gen",
+//            table = "users_seq",
+//            pkColumnName = "sequence_name",
+//            valueColumnName = "next_val",
+//            pkColumnValue = "user_seq",
+//            allocationSize = 1 // Set the allocation size to 1 to prevent jumps
+//    )
     private Long id;
 
     private String username;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,12 @@ public class ProductController {
         cartService.addtoCart(id,1L);
         return "redirect:/cart";
     }
+
+    // @PostMapping("/update-cart")
+    // public String updateCart(@RequestParam("quantity") int quantity){
+    //     CartItem cartItem = cartService
+    //     return "redirect:/cart";
+    // }
 
     // @GetMapping("/addToCart/{productId}")
     // public String cartier(){

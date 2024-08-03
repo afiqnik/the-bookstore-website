@@ -49,4 +49,9 @@ public class HomeController {
 
         return "index";
     }
+
+    // @GetMapping(value="/bestSellers","/newArrivals","/")
+    // public void attribs(Model model){
+        
+    // }
 }

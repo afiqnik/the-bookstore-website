@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ProductController {
@@ -116,12 +115,12 @@ public class ProductController {
     }
 
     @RequestMapping("/addToCart/{id}")
-    public String addtoCart(@PathVariable Long id) {
+    public String addtoCart(@PathVariable Long id){
         Product product = productService.getProductById(id);
 
-        logger.info("Adding product " + product.getId() + " to cart");
+        logger.info("Adding product "+ product.getId()+" to cart");
 
-        cartService.addtoCart(id, 1L);
+        cartService.addtoCart(id,1L);
         return "redirect:/cart";
     }
 

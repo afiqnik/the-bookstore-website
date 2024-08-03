@@ -1,27 +1,55 @@
 package com.YP.bookstore.model;
 
+import jakarta.persistence.*;
+import lombok.*;
 
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen")
+    @SequenceGenerator(name = "mySeqGen", sequenceName = "my_sequence_name", allocationSize = 1)
+
+//    @TableGenerator(
+//            name = "user_gen",
+//            table = "users_seq",
+//            pkColumnName = "sequence_name",
+//            valueColumnName = "next_val",
+//            pkColumnValue = "user_seq",
+//            allocationSize = 1 // Set the allocation size to 1 to prevent jumps
+//    )
     private Long id;
 
-    // @Column(nullable = false, unique = true)
-    // @NotEmpty
-    // @Length(max = 16)
     private String username;
-    private String password;
-    private String email;
-    private String address;
 
+    private String password;
+
+    private String fullname;
+
+    private String email;
+
+    private String Address;
+
+    private String CardDetails;
+
+    public User(String username, String password, String fullname, String email, String Address, String CardDetails) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.Address = Address;
+        this.CardDetails = CardDetails;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", Address=" + Address + ", CardDetails=]";
+    }
 }

@@ -72,14 +72,11 @@
                 </div>
             </td>
             <td data-th="Price" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.product.listPrice}"></td>
-            <form action="/update-cart" method="post">
                 <td data-th="Quantity">
                     <label>
                         <input type="number" class="form-control text-center" th:value="${carts.quantity}">
                     </label>
-                </td>
-            </form>
-            
+                </td>          
             <td data-th="Subtotal" class="text-center" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.price}"></td>
             <td class="actions" data-th="">
                 <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>

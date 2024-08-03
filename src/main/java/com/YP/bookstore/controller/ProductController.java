@@ -138,19 +138,12 @@ public class ProductController {
         return "redirect:/cart";
     }
 
-    // @PostMapping("/update-cart")
-    // public String updateCart(@RequestParam("quantity") int quantity){
-    //     CartItem cartItem = cartService
-    //     return "redirect:/cart";
-    // }
-
-    // @GetMapping("/addToCart/{productId}")
-    // public String cartier(){
-    //     // Product product = productService.getProductById(productid);
-
-    //     logger.info("get method of addtocart");
-
-    //     // cartService.addtoCart(productid,1L);
-    //     return "redirect:/cart";
-    // }
+    @GetMapping("/search")
+    public String searchBooks(@RequestParam(name="title") String title, Model model){
+        List<Product> searchResults = productService.searchBooks(title,title);
+        logger.info("Product retrieved: "+searchResults.size());
+        model.addAttribute("searchResults", searchResults);
+        model.addAttribute("searchtitle", title);
+        return "/searchResults";
+    }
 }

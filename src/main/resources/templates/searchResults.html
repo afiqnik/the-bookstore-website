@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{navbar :: navbarTemplate}"></div>
+
+<div class="container">
+    <h2>Searching results for: <span th:text="${searchtitle}"></span></h2>
+    <div class="row">
+        <div class="col-md-3" th:each="search : ${searchResults}">
+            <div class="card mb-4">
+                <img th:src="${search.imageLinks}" class="card-img-top" alt="Book Cover">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${search.title}">Book Title</h5>
+                    <p class="card-text" th:text="${search.author}">Author Name</p>
+                    <p class="card-text" th:text="${search.listPrice} + ' ' + ${search.listPriceCurrency}">Price</p>
+                    <a th:href="@{/search/{id}(id=${search.id})}" class="btn btn-primary btn-block">View More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

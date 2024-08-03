@@ -36,4 +36,8 @@ public class ProductService {
     public List<Product> getNewArrivalsProducts() {
         return productRepository.findByIsNewArrivalTrue();
     }
+
+    public List<Product> searchBooks(String title, String author) {
+        return productRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(title, author);
+    }
 }

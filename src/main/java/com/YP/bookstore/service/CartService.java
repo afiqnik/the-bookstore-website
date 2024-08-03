@@ -33,12 +33,31 @@ public class CartService {
         return cart;
     }
 
-    // public CartItem getProductByCart(Integer id){
-    //     Product product = productRepository.
-    //     CartItem 
+    public void updateQuantity(Long id, String action){
 
-    //     return cart;
-    // }
+        CartItem cart = cartRepository.findById(id).orElse(null);
+        Product product = productRepository.findById(cart.getProduct().getId()).orElse(null);
+        int updateQ;
+
+        if(action.equalsIgnoreCase("decrease")){
+            updateQ=cart.getQuantity()-1;
+
+            if(updateQ <=0){
+                cartRepository.delete(cart);
+            }
+            else{
+                cart.setQuantity(updateQ);
+                cart.setPrice(product.getListPrice()*updateQ);
+                cartRepository.save(cart);
+            }
+        }
+        else{
+            updateQ=cart.getQuantity()+1;
+            cart.setQuantity(updateQ);
+            cart.setPrice(product.getListPrice()*updateQ);
+            cartRepository.save(cart);
+        }
+    }
 
     public List<CartItem> getAllCarts() {
         return cartRepository.findAll();
@@ -49,7 +68,6 @@ public class CartService {
         Product product = productRepository.findById(productID).get();
         User user = userRepository.findById(userID).get();
         CartItem cartstatus = cartRepository.findByProductIdAndUserId(productID,userID);
-
         CartItem cart=null;
 
         if(ObjectUtils.isEmpty(cartstatus)){
@@ -67,5 +85,10 @@ public class CartService {
 
         return saveCart;
 
+    }
+
+    public void deleteCart(Long id) {
+        CartItem cart = cartRepository.findById(id).orElse(null);
+        cartRepository.delete(cart);
     }
 }

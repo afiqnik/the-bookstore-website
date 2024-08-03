@@ -72,21 +72,18 @@
                 </div>
             </td>
             <td data-th="Price" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.product.listPrice}"></td>
-            <form action="/update-cart" method="post">
-                <td data-th="Quantity">
-                    <label>
-                        <input type="number" class="form-control text-center" name="quantity">
-                    </label>
-                </td>
-                <td>
-                    <button type="submit">Update Cart</button>
-                </td>
-            </form>
-            
+            <td data-th="Quantity" class="text-center">
+                <a th:href="@{/updateQuantity/{id}/{action}(id=${carts.id},action='decrease')}">
+                        <i class="fa fa-solid fa-minus"></i>
+                </a>  [[${carts.quantity}]]  
+                <a th:href="@{/updateQuantity/{id}/{action}(id=${carts.id},action='increase')}">
+                        <i class="fa fa-solid fa-plus"></i>
+                </a>
+            </td>            
             <td data-th="Subtotal" class="text-center" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.price}"></td>
             <td class="actions" data-th="">
-                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                <!-- <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button> -->
+                <a th:href= "@{/deleteCart/{id}(id=${carts.id})}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ></i></a>
             </td>
         </tr>
         </tbody>
@@ -99,13 +96,32 @@
             <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
-            <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <dialog id="customModal" class="modal" style="border: solid rgba(165, 45, 45, 0) 125px;">
+            <div class="text-center" style="height: 2500; align-content: center; justify-content: center;">
+                <p>Are you sure you want to proceed?</p>
+                <button onclick="confirmAction()">Yes</button>
+                <button onclick="closeModal()">No</button>
+            </div>
+            </dialog>
         </tr>
         </tfoot>
     </table>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
+<script>
+    function showConfirmation() {
+        document.getElementById('customModal').style.display = 'block';
+    }
+    function confirmAction() {
+        // Handle the confirmed action here
+        console.log('Confirmed!');
+        closeModal();
+    }
+    function closeModal() {
+        document.getElementById('customModal').style.display = 'none';
+    }
+</script>
 </body>
 </html>

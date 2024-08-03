@@ -2,6 +2,7 @@ package com.YP.bookstore.controller;
 
 import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.model.Product;
+import com.YP.bookstore.repository.CartRepository;
 import com.YP.bookstore.service.CartService;
 import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +121,20 @@ public class ProductController {
         logger.info("Adding product "+ product.getId()+" to cart");
 
         cartService.addtoCart(id,1L);
+        return "redirect:/cart";
+    }
+
+    @RequestMapping("/updateQuantity/{id}/{action}")
+    public String updateQuantity(@PathVariable Long id,@PathVariable String action){
+
+        logger.info("Updating quantity of cart item");
+        cartService.updateQuantity(id, action);
+        return "redirect:/cart";
+    }
+
+    @RequestMapping("/deleteCart/{id}")
+    public String deleteCart(@PathVariable Long id){
+        cartService.deleteCart(id);
         return "redirect:/cart";
     }
 

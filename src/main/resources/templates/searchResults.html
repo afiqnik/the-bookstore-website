@@ -3,7 +3,6 @@
 <head>
     <title>Products</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/navbar.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -11,16 +10,16 @@
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
 <div class="container">
-    <h2>Product Listing</h2>
+    <h2>Searching results for: <span th:text="${searchtitle}"></span></h2>
     <div class="row">
-        <div class="col-md-3" th:each="product : ${products}">
+        <div class="col-md-3" th:each="search : ${searchResults}">
             <div class="card mb-4">
-                <img th:src="${product.imageLinks}" class="card-img-top" alt="Book Cover">
+                <img th:src="${search.imageLinks}" class="card-img-top" alt="Book Cover">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${product.title}">Book Title</h5>
-                    <p class="card-text" th:text="${product.author}">Author Name</p>
-                    <p class="card-text" th:text="${product.listPrice} + ' ' + ${product.listPriceCurrency}">Price</p>
-                    <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary btn-block">View More</a>
+                    <h5 class="card-title" th:text="${search.title}">Book Title</h5>
+                    <p class="card-text" th:text="${search.author}">Author Name</p>
+                    <p class="card-text" th:text="${search.listPrice} + ' ' + ${search.listPriceCurrency}">Price</p>
+                    <a th:href="@{/search/{id}(id=${search.id})}" class="btn btn-primary btn-block">View More</a>
                 </div>
             </div>
         </div>

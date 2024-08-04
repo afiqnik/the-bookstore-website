@@ -29,10 +29,10 @@ public class CartService {
     private UserRepository userRepository;
 
 
-    public CartItem getCartbyUser(Integer id){
-        CartItem cart = cartRepository.findById(id);
-        return cart;
-    }
+    // public CartItem getCartbyUser(Integer id){
+    //     CartItem cart = cartRepository.findById(id);
+    //     return cart;
+    // }
 
     public void updateQuantity(Long id, String action){
 
@@ -63,6 +63,10 @@ public class CartService {
     public List<CartItem> getAllCarts() {
         return cartRepository.findAll();
         
+    }
+
+    public List<CartItem> getCartbyUser(Long id){
+        return cartRepository.findByUserId(id);
     }
 
     public CartItem addtoCart(Long productID,Long userID) {

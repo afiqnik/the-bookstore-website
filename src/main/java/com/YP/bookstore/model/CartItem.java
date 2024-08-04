@@ -24,6 +24,10 @@ public class CartItem {
     @JoinColumn(name = "productID",nullable = false)
     private Product product;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "orderID")
+    private Orders order;
+
     private Integer quantity;
 
     private Double price;

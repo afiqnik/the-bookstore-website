@@ -47,20 +47,19 @@
             </td>            
             <td data-th="Subtotal" class="text-center" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.price}"></td>
             <td class="actions" data-th="">
-                <!-- <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button> -->
                 <a th:href= "@{/deleteCart/{id}(id=${carts.id})}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ></i></a>
             </td>
         </tr>
         </tbody>
         <tfoot>
         <tr class="visible-xs">
-            <td class="text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
+            <td class="text-center"><strong>Total RM <span th:text="${#numbers.formatCurrency(total, 2, 2, 'COMMA')}"></span></strong></td>
 
         </tr>
         <tr>
             <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
+            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${#numbers.formatDecimal(total, 1, 'DEFAULT', 2, 'DEFAULT')}"></span></strong></td>
             <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
             <dialog id="customModal" class="modal" style="border: solid rgba(165, 45, 45, 0) 125px;">
             <div class="text-center" style="height: 250px; align-content: center; justify-content: center;">

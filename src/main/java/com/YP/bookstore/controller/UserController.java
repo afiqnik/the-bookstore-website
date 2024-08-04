@@ -3,7 +3,6 @@ package com.YP.bookstore.controller;
 import com.YP.bookstore.model.User;
 import com.YP.bookstore.model.UserDto;
 import com.YP.bookstore.service.UserService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

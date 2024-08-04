@@ -2,7 +2,6 @@ package com.YP.bookstore.controller;
 
 import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.model.Product;
-import com.YP.bookstore.repository.CartRepository;
 import com.YP.bookstore.service.CartService;
 import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,20 +95,20 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/cart")
-    public String viewCarts(Model model){
-        Double total = 0.0;
-        logger.info("Viewing cart after adding product");
-        List<CartItem> cart = cartService.getAllCarts();
-        model.addAttribute("cart", cart);
-        for(CartItem troli:cart){
-            logger.info("Product :"+troli.getProduct().getId()+" retrieved with quantity: "+troli.getQuantity());
-            total+=troli.getPrice();
-        }
-        model.addAttribute("total",total);
+    // @GetMapping("/cart")
+    // public String viewCarts(Model model){
+    //     Double total = 0.0;
+    //     logger.info("Viewing cart after adding product");
+    //     List<CartItem> cart = cartService.getAllCarts();
+    //     model.addAttribute("cart", cart);
+    //     for(CartItem troli:cart){
+    //         logger.info("Product :"+troli.getProduct().getId()+" retrieved with quantity: "+troli.getQuantity());
+    //         total+=troli.getPrice();
+    //     }
+    //     model.addAttribute("total",total);
 
-        return "/cart";
-    }
+    //     return "/cart";
+    // }
 
     @RequestMapping("/addToCart/{id}")
     public String addtoCart(@PathVariable Long id){

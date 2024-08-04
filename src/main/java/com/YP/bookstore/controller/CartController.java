@@ -3,7 +3,6 @@ package com.YP.bookstore.controller;
 import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.model.Product;
 import com.YP.bookstore.service.CartService;
-import com.YP.bookstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,14 +49,4 @@ public class CartController {
         }
         return "redirect:/login";
     }
-
-//    @RequestMapping("/addToCart/{id}")
-//    public String addtoCart(@PathVariable Long id) {
-//        Product product = productService.getProductById(id);
-//
-//        logger.info("Adding product " + product.getId() + " to cart");
-//
-//        cartService.addtoCart(id, 1L);
-//        return "redirect:/cart";
-//    }
 }

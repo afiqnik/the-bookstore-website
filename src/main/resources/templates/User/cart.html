@@ -64,7 +64,7 @@
             <dialog id="customModal" class="modal" style="border: solid rgba(165, 45, 45, 0) 125px;">
             <div class="text-center" style="height: 250px; align-content: center; justify-content: center;">
                 <p>Are you sure you want to proceed?</p>
-                <button onclick="confirmAction()">Yes</button>
+                <button th:href= "@{/orderSummary}" onclick="confirmAction()">Yes</button>
                 <button onclick="closeModal()">No</button>
             </div>
             </dialog>

@@ -27,26 +27,26 @@ public class CartController {
     private CartService cartService;
 
 
-    @GetMapping
-    public String viewCarts(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.isAuthenticated()) {
-            // logic to show the cart
-            logger.info("Viewing cart after adding product");
-            List<CartItem> cart = cartService.getAllCarts();
+    // @GetMapping
+    // public String viewCarts(Model model) {
+    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //     if (auth.isAuthenticated()) {
+    //         // logic to show the cart
+    //         logger.info("Viewing cart after adding product");
+    //         List<CartItem> cart = cartService.getAllCarts();
 
-            List<Product> products = new ArrayList<Product>();
-            for (CartItem cartItem : cart) {
-                products.add(cartItem.getProduct());
-            }
-            model.addAttribute("product", products);
-            model.addAttribute("cart", cart);
-            for (CartItem troli : cart) {
-                logger.info("Product :" + troli.getProduct().getId() + " retrieved with quantity: " + troli.getQuantity());
-            }
-            return "User/cart";
+    //         List<Product> products = new ArrayList<Product>();
+    //         for (CartItem cartItem : cart) {
+    //             products.add(cartItem.getProduct());
+    //         }
+    //         model.addAttribute("product", products);
+    //         model.addAttribute("cart", cart);
+    //         for (CartItem troli : cart) {
+    //             logger.info("Product :" + troli.getProduct().getId() + " retrieved with quantity: " + troli.getQuantity());
+    //         }
+    //         return "User/cart";
 
-        }
-        return "redirect:/login";
-    }
+    //     }
+    //     return "redirect:/login";
+    // }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Order Summary</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${orderItems}">
+            <td th:text="${item.title}">Book Title</td>
+            <td th:text="${item.author}">Author</td>
+            <td th:text="${item.quantity}">1</td>
+            <td th:text="${item.price}">$0.00</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 class="mt-5">Shipping Address</h4>
+    <p th:text="${shippingAddress.name}">John Doe</p>
+    <p th:text="${shippingAddress.street}">123 Main St</p>
+    <p th:text="${shippingAddress.city}">City</p>
+    <p th:text="${shippingAddress.state}">State</p>
+    <p th:text="${shippingAddress.zip}">12345</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

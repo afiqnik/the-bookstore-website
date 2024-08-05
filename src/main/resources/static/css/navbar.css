@@ -1,8 +1,8 @@
 /* Navbar styles */
 .navbar {
-    background-color: rgba(0, 0, 0, 0.50) !important; /* 75% transparency */
+    background-color: rgba(0, 0, 0, 0.95) !important; /* 50% transparency */
     transition: background-color 0.3s, color 0.3s;
-    position: absolute;
+    position: fixed !important;
     width: 100%;
     z-index: 10;
 }
@@ -14,7 +14,7 @@
 }
 
 .navbar:hover {
-    background-color: rgba(255, 254, 254, 0.5) !important; /* 75% transparency */
+    background-color: rgba(255, 254, 254, 0.95) !important; /* 75% transparency */
 }
 
 .navbar:hover .nav-link,
@@ -44,7 +44,6 @@
     background-color: black;
     color: white !important;
 }
-
 .sticky-navbar{
     position: sticky;
     top: 0;

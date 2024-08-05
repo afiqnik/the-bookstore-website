@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Order Summary</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            padding-top:100px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5" th:each= "order:${orders}">
+<!-- Navbar -->
+<div th:replace="~{navbar :: navbarTemplate}"></div>
+
+<div class="container" th:each= "order:${orders}">
     <h2 class="mb-4">Order Summary</h2>
     <table class="table table-bordered">
         <thead>
@@ -22,16 +36,12 @@
             <td th:text="${cart.product.title}"></td>
             <td th:text="${cart.product.author}"></td>
             <td th:text="${cart.quantity}"></td>
-            <td th:text="${cart.price}"></td>
+            <td th:text="'RM '+ ${cart.price}"></td>
         </tr>
         </tbody>
     </table>
     <h4 class="mt-5">Shipping Address</h4>
     <p th:text="${order.user.Address}"></p>
-    <!-- <p th:text="${shippingAddress.street}">123 Main St</p>
-    <p th:text="${shippingAddress.city}">City</p>
-    <p th:text="${shippingAddress.state}">State</p>
-    <p th:text="${shippingAddress.zip}">12345</p> -->
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

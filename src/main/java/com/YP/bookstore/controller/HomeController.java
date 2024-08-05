@@ -2,8 +2,9 @@ package com.YP.bookstore.controller;
 
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import com.YP.bookstore.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,9 +49,14 @@ public class HomeController {
     public String listProducts(Model model,Principal principal) {
         List<Product> newArrivals = productService.getNewArrivalsProducts();
         List<Product> bestSellers = productService.getBestsellerProducts();
-        model.addAttribute("newArrivals", newArrivals);
-        model.addAttribute("bestSellers", bestSellers);
-        logger.info("Listing all the products");
+        Collections.shuffle(newArrivals); // Shuffle the list to randomize
+        Collections.shuffle(bestSellers);
+        List<Product> randomNewArrivals = newArrivals.stream().limit(4).toList(); // Limit to 4 items
+        List<Product> randomBestSellers = bestSellers.stream().limit(4).toList();
+        model.addAttribute("newArrivals", randomNewArrivals);
+        model.addAttribute("bestSellers", randomBestSellers);
+
+        logger.info("Listing 4 random products for new arrival & best sellers section");
 
         return "index";
     }

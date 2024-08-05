@@ -6,6 +6,55 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <style>
+        body {
+            background-color: lightgoldenrodyellow;
+        }
+
+        .container {
+            padding-top: 100px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-method {
+            margin: 20px 0;
+        }
+
+        #successMessage {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 
     <title>Bookstore Cart</title>
 </head>
@@ -28,65 +77,84 @@
         <tbody>
         <tr th:each="carts:${cart}">
             <td data-th="Product">
-                <div class="row">
-                    <div class="col-sm-2 hidden-xs"><img th:src="${carts.product.imageLinks}" alt="Book Cover" class="img-responsive" /></div>
+                <div class="row" style="display: flex; flex-direction: row; align-items: flex-start;">
+                    <div class="col-sm-2 hidden-xs" style="margin-right: 90px;"><img style="height: 198px; width: 130px;" th:src="${carts.product.imageLinks}" alt="Book Cover" class="img-responsive" />
+                    </div>
                     <div class="col">
-                        <h4 class="nomargin" th:text="${carts.product.title}"></h4>
-                        <p th:text="${carts.product.author}"></p>
+                        <h4 class="nomargin" style="margin: 0;" th:text="${carts.product.title}"></h4>
+                        <p style="margin: 0" th:text="${carts.product.author}"></p>
                     </div>
                 </div>
             </td>
-            <td data-th="Price" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.product.listPrice}"></td>
+            <td data-th="Price" th:text="'RM ' + ${#numbers.formatDecimal(carts.product.listPrice, 0, 'COMMA', 2, 'POINT')}"></td>
             <td data-th="Quantity" class="text-center">
                 <a th:href="@{/updateQuantity/{id}/{action}(id=${carts.id},action='decrease')}">
-                        <i class="fa fa-solid fa-minus"></i>
-                </a>  [[${carts.quantity}]]  
+                    <i class="fa fa-minus"></i>
+                </a> [[${carts.quantity}]]
                 <a th:href="@{/updateQuantity/{id}/{action}(id=${carts.id},action='increase')}">
-                        <i class="fa fa-solid fa-plus"></i>
+                    <i class="fa fa-plus"></i>
                 </a>
-            </td>            
-            <td data-th="Subtotal" class="text-center" th:text="${carts.product.listPriceCurrency} + ' ' + ${carts.price}"></td>
+            </td>
+            <td data-th="Subtotal" class="text-center" th:text="'RM ' + ${#numbers.formatDecimal(carts.price, 0, 'COMMA', 2, 'POINT')}"></td>
             <td class="actions" data-th="">
-                <a th:href= "@{/deleteCart/{id}(id=${carts.id})}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" ></i></a>
+                <a th:href="@{/deleteCart/{id}(id=${carts.id})}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         </tbody>
         <tfoot>
-        <tr class="visible-xs">
-            <td class="text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
-
-        </tr>
         <tr>
-            <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td><a href="/" class="btn btn-warning">Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
-            <!-- <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td> -->
-            <td><a th:href= "@{/createOrder}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-            <dialog id="customModal" class="modal" style="border: solid rgba(165, 45, 45, 0) 125px;">
-            <div class="text-center" style="height: 250px; align-content: center; justify-content: center;">
-                <p>Are you sure you want to proceed?</p>
-                <button th:href= "@{/createOrder}" onclick="confirmAction()">Yes</button>
-                <button onclick="closeModal()">No</button>
-            </div>
-            </dialog>
+            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span></strong></td>
+            <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout</a></td>
         </tr>
         </tfoot>
     </table>
 </div>
+
+<div id="customModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to proceed?</p>
+        <div class="payment-method">
+            <label for="paymentMethod">Choose your payment method:</label>
+            <select id="paymentMethod" class="form-control">
+                <option value="cod">Cash on Delivery</option>
+            </select>
+            <small class="form-text text-muted">Only one method available for now</small>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeModal()" class="btn btn-secondary">No</button>
+            <button onclick="confirmAction()" class="btn btn-success">Yes</button>
+        </div>
+    </div>
+</div>
+
+<div id="successMessage" class="text-center">Order Successful! Redirecting to Order Summary...</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
     function showConfirmation() {
         document.getElementById('customModal').style.display = 'block';
     }
+
     function confirmAction() {
-        // Handle the confirmed action here
-        console.log('Confirmed!');
-        window.location.href = '/createOrder';
+        setTimeout(function() {
+            window.location.href = '/createOrder';
+        }, 2000); // 2-second delay before redirect
         closeModal();
     }
+
     function closeModal() {
         document.getElementById('customModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById('customModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
     }
 </script>
 </body>

@@ -14,10 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -42,11 +39,22 @@ public class ProductController {
     @Autowired
     private OrderService orderService;
 
-    private User getUserDetails(Principal principal){
-        String username= principal.getName();
+    private User getUserDetails(Principal principal) {
+        String username = principal.getName();
         User user = userService.findByUsername(username);
-        
+
         return user;
+    }
+
+    @ModelAttribute
+    public void addAttribute(Principal principal, Model model) {
+        String login = "Login";
+        String logout = "Logout";
+        if (principal != null) {
+            model.addAttribute("log", logout);
+        } else {
+            model.addAttribute("log", login);
+        }
     }
 
     @GetMapping("/products")
@@ -98,7 +106,7 @@ public class ProductController {
             return "error";
         }
     }
-    
+
     @GetMapping("/best-sellers")
     public String viewBestsellerProducts(Model model) {
         try {
@@ -116,59 +124,66 @@ public class ProductController {
             return "error";
         }
     }
-    
+
     @GetMapping("/search")
-    public String searchBooks(@RequestParam(name="title") String title, Model model){
-        List<Product> searchResults = productService.searchBooks(title,title);
-        logger.info("Product retrieved: "+searchResults.size());
+    public String searchBooks(@RequestParam(name = "title") String title, Model model) {
+        List<Product> searchResults = productService.searchBooks(title, title);
+        logger.info("Product retrieved: " + searchResults.size());
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchtitle", title);
         return "/searchResults";
     }
 
     @GetMapping("/cart")
-    public String viewCarts(Model model, Principal principal){
+    public String viewCarts(Model model, Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Double total=0.0;
-        if(auth.isAuthenticated()){
+        Double total = 0.0;
+        if (auth.isAuthenticated()) {
             User user = getUserDetails(principal);
             logger.info("Viewing cart after adding product");
             List<CartItem> emptyCart = new ArrayList<CartItem>();
             List<CartItem> cart = cartService.getCartbyUser(user.getId());
-            for(CartItem carts:cart){
-                if(carts.getOrder()!=null){
+            for (CartItem carts : cart) {
+                if (carts.getOrder() != null) {
                     continue;
-                }else{
+                } else {
                     logger.info("adding to empty carts");
                     emptyCart.add(carts);
                 }
             }
             model.addAttribute("cart", emptyCart);
-            for(CartItem troli:emptyCart){
-                logger.info("Product :"+troli.getProduct().getId()+" retrieved with quantity: "+troli.getQuantity());
-                total+=troli.getPrice();
+            for (CartItem troli : emptyCart) {
+                logger.info(
+                        "Product :" + troli.getProduct().getId() + " retrieved with quantity: " + troli.getQuantity());
+                total += troli.getPrice();
             }
             model.addAttribute("total", total);
 
-            return "User/cart";
+            return "/User/cart";
 
         }
         return "redirect:/login";
     }
 
     @RequestMapping("/addToCart/{id}")
-    public String addtoCart(@PathVariable Long id, Principal p){
-        Product product = productService.getProductById(id);
-        User user = getUserDetails(p);
+    public String addtoCart(@PathVariable Long id, Principal p) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        logger.info("Adding product "+ product.getId()+" to cart");
+        if (auth.isAuthenticated()) {
+            Product product = productService.getProductById(id);
+            User user = getUserDetails(p);
 
-        cartService.addtoCart(id,user.getId());
-        return "redirect:/cart";
+            logger.info("Adding product " + product.getId() + " to cart");
+
+            cartService.addtoCart(id, user.getId());
+            return "redirect:/cart";
+        }
+
+        return "redirect:/login";
     }
 
     @RequestMapping("/updateQuantity/{id}/{action}")
-    public String updateQuantity(@PathVariable Long id,@PathVariable String action){
+    public String updateQuantity(@PathVariable Long id, @PathVariable String action) {
 
         logger.info("Updating quantity of cart item");
         cartService.updateQuantity(id, action);
@@ -176,38 +191,43 @@ public class ProductController {
     }
 
     @RequestMapping("/deleteCart/{id}")
-    public String deleteCart(@PathVariable Long id){
+    public String deleteCart(@PathVariable Long id) {
         cartService.deleteCart(id);
         return "redirect:/cart";
     }
 
     @RequestMapping("/createOrder")
-    public String userOrder(Model model,Principal principal){
+    public String userOrder(Model model, Principal principal) {
         logger.info("Creating order...");
         List<CartItem> emptyCart = new ArrayList<CartItem>();
         User user = getUserDetails(principal);
         List<CartItem> cart = cartService.getCartbyUser(user.getId());
-        for(CartItem carts:cart){
-            if(carts.getOrder()!=null){
+        for (CartItem carts : cart) {
+            if (carts.getOrder() != null) {
                 logger.info("Viewing added empty carts");
                 continue;
-            }else{
+            } else {
                 emptyCart.add(carts);
             }
         }
-        Orders orders= orderService.createOrder(emptyCart, user);
+        Orders orders = orderService.createOrder(emptyCart, user);
         model.addAttribute("orders", orders);
         // model.addAttribute("user", orders.getUser());
         return "orderSummary";
     }
 
     @RequestMapping("/order")
-    public String viewOrder(Model model, Principal principal){
-        logger.info("Viewing order...");
-        User user = getUserDetails(principal);
-        List<Orders> orders = orderService.viewOrders(user);
-        model.addAttribute("orders", orders);
-        // model.addAttribute("user", orders);
-        return "orderSummary";
+    public String viewOrder(Model model, Principal principal) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth.isAuthenticated()) {
+            logger.info("Viewing order...");
+            User user = getUserDetails(principal);
+            List<Orders> orders = orderService.viewOrders(user);
+            model.addAttribute("orders", orders);
+            // model.addAttribute("user", orders);
+            return "orderSummary";
+        }
+        return "redirect:/login";
     }
 }

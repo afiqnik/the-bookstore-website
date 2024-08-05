@@ -11,16 +11,16 @@
 <body>
 
 <!-- Navbar -->
-<div th:replace="~{navbar :: navbarTemplate}"></div>
+<div class="stick-nav" th:replace="~{navbar :: navbarTemplate}"></div>
 
 <!-- Hero Banner -->
-<div class="jumbotron">
-    <div class="overlay";>
+<div class="jumbotron" style="margin-bottom: 30px;">
+    <div class="overlay">
         <div id="slideshow" class="slideshow">
             <img th:src="@{/images/homebanner1.png}" alt="Banner 1">
             <img th:src="@{/images/homebanner2.png}" alt="Banner 2">
-            <img th:src="@{/images/homebanner3.png}" alt="Banner 3">
-            <img th:src="@{/images/homebanner4.png}" alt="Banner 4">
+            <img th:src="@{/images/homebanner3.jpg}" alt="Banner 3">
+            <img th:src="@{/images/homebanner4.jpg}" alt="Banner 4">
         </div>
         <div class="content">
             <h1 class="text-shadow">Welcome to Our Bookstore!</h1>
@@ -30,42 +30,84 @@
 </div>
 
 <div class="container">
+    <!-- About Us Section -->
+    <section id="about-us" style="margin-top: 30px;">
+        <div class="text-center" style="height: 80px;">
+            <h2>About Us</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div style="display: flex; align-items: center; height: 100%;">
+                    <img src="/images/library.jpg" class="img-fluid" alt="About Us Image" style="max-height: 100%;">
+                </div>
+            </div>
+            <div class="col-md-6 card-about">
+                <p>
+                    Our bookstore is a haven for book lovers, offering a wide range of genres to satisfy every reader's taste.
+                </p>
+                <p>
+                    Join us on our journey to explore new worlds, discover hidden gems, and lose yourself in the magic of books.
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="container">
     <!-- New Arrivals Section -->
     <section>
-        <h2>New Arrivals</h2>
+        <div class="text-center" style=" height: 80px;">
+            <h2>New Arrivals</h2>
+        </div>
         <div class="card-container">
             <div class="col-md-3" th:each="product : ${newArrivals}">
                 <div class="card mb-4">
-                    <img th:src="@{${product.imageLinks}}" class="card-img-top" alt="Book Cover">
+                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 250px;" alt="Book Cover">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.title}">Book Title</h5>
                         <p class="card-text" th:text="${product.author}">Author Name</p>
-                        <p class="card-text" th:text="${product.listPriceCurrency} + ' ' + ${product.listPrice}">Price</p>
+                        <div class="fs-5 mb-5">
+                            <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
+                            <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
                         <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary btn-block">View More</a>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="/new-arrivals" class="btn btn-secondary">View More in this Section</a>
-    </section>
 
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <a href="/new-arrivals" class="btn btn-secondary">View More in this Section</a>
+          </div>
+    </section>
+</div>
+<div class="container">
     <!-- Best Sellers Section -->
-    <section>
+    <div class="text-center" style="margin-top: 30px ; height: 80px;">
         <h2>Best Sellers</h2>
+    </div>
+    <section>
         <div class="card-container">
             <div class="col-md-3" th:each="product : ${bestSellers}">
                 <div class="card mb-4">
-                    <img th:src="@{${product.imageLinks}}" class="card-img-top" alt="Book Cover">
+                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 250px;" alt="Book Cover">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.title}">Book Title</h5>
                         <p class="card-text" th:text="${product.author}">Author Name</p>
-                        <p class="card-text" th:text="${product.listPriceCurrency} + ' ' + ${product.listPrice}">Price</p>
+                        <div class="fs-5 mb-5">
+                            <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
+                            <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+
                         <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary btn-block">View More</a>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="/best-sellers" class="btn btn-secondary">View More in this Section</a>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <a href="/best-sellers" class="btn btn-secondary">View More in this Section</a>
+          </div>
     </section>
 
     <!-- Footer -->

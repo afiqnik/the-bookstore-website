@@ -34,9 +34,18 @@
     background-color: lightgrey;
     border: none;
 }
+.my-element {
+    position: relative;
+    z-index: 1;
+}
+
 
 .navbar-search:hover {
     background-color: black;
     color: white !important;
 }
 
+.sticky-navbar{
+    position: sticky;
+    top: 0;
+}

@@ -1,9 +1,11 @@
 package com.YP.bookstore.controller;
 
 import com.YP.bookstore.model.CartItem;
+import com.YP.bookstore.model.Orders;
 import com.YP.bookstore.model.Product;
 import com.YP.bookstore.model.User;
 import com.YP.bookstore.service.CartService;
+import com.YP.bookstore.service.OrderService;
 import com.YP.bookstore.service.ProductService;
 import com.YP.bookstore.service.UserService;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,9 @@ public class ProductController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     private User getUserDetails(Principal principal){
         String username= principal.getName();
@@ -127,15 +133,24 @@ public class ProductController {
         if(auth.isAuthenticated()){
             User user = getUserDetails(principal);
             logger.info("Viewing cart after adding product");
+            List<CartItem> emptyCart = new ArrayList<CartItem>();
             List<CartItem> cart = cartService.getCartbyUser(user.getId());
-            model.addAttribute("cart", cart);
-            for(CartItem troli:cart){
+            for(CartItem carts:cart){
+                if(carts.getOrder()!=null){
+                    continue;
+                }else{
+                    logger.info("adding to empty carts");
+                    emptyCart.add(carts);
+                }
+            }
+            model.addAttribute("cart", emptyCart);
+            for(CartItem troli:emptyCart){
                 logger.info("Product :"+troli.getProduct().getId()+" retrieved with quantity: "+troli.getQuantity());
                 total+=troli.getPrice();
             }
             model.addAttribute("total", total);
 
-            return "/cart";
+            return "User/cart";
 
         }
         return "redirect:/login";
@@ -166,4 +181,33 @@ public class ProductController {
         return "redirect:/cart";
     }
 
+    @RequestMapping("/createOrder")
+    public String userOrder(Model model,Principal principal){
+        logger.info("Creating order...");
+        List<CartItem> emptyCart = new ArrayList<CartItem>();
+        User user = getUserDetails(principal);
+        List<CartItem> cart = cartService.getCartbyUser(user.getId());
+        for(CartItem carts:cart){
+            if(carts.getOrder()!=null){
+                logger.info("Viewing added empty carts");
+                continue;
+            }else{
+                emptyCart.add(carts);
+            }
+        }
+        Orders orders= orderService.createOrder(emptyCart, user);
+        model.addAttribute("orders", orders);
+        // model.addAttribute("user", orders.getUser());
+        return "orderSummary";
+    }
+
+    @RequestMapping("/order")
+    public String viewOrder(Model model, Principal principal){
+        logger.info("Viewing order...");
+        User user = getUserDetails(principal);
+        List<Orders> orders = orderService.viewOrders(user);
+        model.addAttribute("orders", orders);
+        // model.addAttribute("user", orders);
+        return "orderSummary";
+    }
 }

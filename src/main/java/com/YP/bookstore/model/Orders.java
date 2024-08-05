@@ -1,5 +1,7 @@
 package com.YP.bookstore.model;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -25,7 +27,7 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name="userID",unique = false,nullable = false)
     private User user;
-    private Integer price;
-    private Integer totalprice;
-    private String orderdate;
+    // private Integer price;
+    private Double totalprice;
+    private LocalDate orderdate;
 }

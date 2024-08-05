@@ -74,18 +74,33 @@ public class CartService {
         User user = userRepository.findById(userID).get();
         CartItem cartstatus = cartRepository.findByProductIdAndUserId(productID,userID);
         CartItem cart=null;
-
+        
         if(ObjectUtils.isEmpty(cartstatus)){
             cart=new CartItem();
             cart.setUser(user);
             cart.setProduct(product);
             cart.setPrice(product.getListPrice());
             cart.setQuantity(1);
-        }else{
-            cart=cartstatus;
-            cart.setQuantity(cart.getQuantity()+1);
-            cart.setPrice(cart.getPrice()+product.getListPrice());
         }
+        else{
+            if(cartstatus.getOrder()!=null){
+                cart=new CartItem();
+                cart.setUser(user);
+                cart.setProduct(product);
+                cart.setPrice(product.getListPrice());
+                cart.setQuantity(1);
+            }else if(cartstatus.getOrder()==null){
+                cart=cartstatus;
+                cart.setQuantity(cart.getQuantity()+1);
+                cart.setPrice(cart.getPrice()+product.getListPrice());    
+            }else{
+                cart=cartstatus;
+                cart.setQuantity(cart.getQuantity()+1);
+                cart.setPrice(cart.getPrice()+product.getListPrice());
+
+            }
+            
+            }
         CartItem saveCart = cartRepository.save(cart);
 
         return saveCart;

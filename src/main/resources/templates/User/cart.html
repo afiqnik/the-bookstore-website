@@ -53,18 +53,19 @@
         </tbody>
         <tfoot>
         <tr class="visible-xs">
-            <td class="text-center"><strong>Total RM <span th:text="${#numbers.formatCurrency(total, 2, 2, 'COMMA')}"></span></strong></td>
+            <td class="text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
 
         </tr>
         <tr>
             <td><a href="/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${#numbers.formatDecimal(total, 1, 'DEFAULT', 2, 'DEFAULT')}"></span></strong></td>
-            <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td class="hidden-xs text-center"><strong>Total RM <span th:text="${total}"></span></strong></td>
+            <!-- <td><a onclick="showConfirmation()" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td> -->
+            <td><a th:href= "@{/createOrder}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
             <dialog id="customModal" class="modal" style="border: solid rgba(165, 45, 45, 0) 125px;">
             <div class="text-center" style="height: 250px; align-content: center; justify-content: center;">
                 <p>Are you sure you want to proceed?</p>
-                <button th:href= "@{/orderSummary}" onclick="confirmAction()">Yes</button>
+                <button th:href= "@{/createOrder}" onclick="confirmAction()">Yes</button>
                 <button onclick="closeModal()">No</button>
             </div>
             </dialog>
@@ -81,6 +82,7 @@
     function confirmAction() {
         // Handle the confirmed action here
         console.log('Confirmed!');
+        window.location.href = '/createOrder';
         closeModal();
     }
     function closeModal() {

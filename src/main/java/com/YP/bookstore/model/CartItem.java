@@ -20,12 +20,12 @@ public class CartItem {
     @JoinColumn(name = "userID",unique = false,nullable = false)
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "productID",nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "productID",nullable = false,unique = false)
     private Product product;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "orderID")
+    @JoinColumn(name = "orderID", unique = false)
     private Orders order;
 
     private Integer quantity;

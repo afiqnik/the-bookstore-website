@@ -6,13 +6,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <style>
-        body{
+        body {
             margin: 0;
-            padding: 0;
+            padding: 100px 0;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
 
-        .container{
-            padding-top:100px;
+        .container {
+            padding-top: 50px;
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        .table {
+            margin-top: 20px;
+            background-color: #ffffff;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .shipping-address {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -20,10 +42,10 @@
 <!-- Navbar -->
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
-<div class="container" th:each= "order:${orders}">
+<div class="container mb-5" th:each="order : ${orders}">
     <h2 class="mb-4">Order Summary</h2>
     <table class="table table-bordered">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>Book Title</th>
             <th>Author</th>
@@ -36,13 +58,19 @@
             <td th:text="${cart.product.title}"></td>
             <td th:text="${cart.product.author}"></td>
             <td th:text="${cart.quantity}"></td>
-            <td th:text="'RM '+ ${cart.price}"></td>
+            <td th:text="'RM ' + ${cart.price}"></td>
         </tr>
         </tbody>
     </table>
-    <h4 class="mt-5">Shipping Address</h4>
-    <p th:text="${order.user.Address}"></p>
+    <div class="shipping-address">
+        <h4>Shipping Address</h4>
+        <p th:text="${order.user.Address}"></p>
+    </div>
 </div>
+
+<!-- Footer -->
+<div th:replace="~{footer :: footerTemplate}"></div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

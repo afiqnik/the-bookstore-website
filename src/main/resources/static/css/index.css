@@ -33,6 +33,12 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.95); /* Adjust the values as needed */
 }
 
+.text-shadow2 {
+    color: black;
+    text-shadow: 2px 2px 4px rgba(126, 125, 125, 0.95);
+}
+
+
 .slideshow {
     position: absolute;
     transform: translateX(-50%);
@@ -104,40 +110,37 @@
     }
 }
 
-/* Card container styles */
-.card-about {
-    max-width: 300px;
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+ .card-about {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 300px;
+     padding: 35px;
+     border: 1px solid rgba(255, 255, 255, .25);
+     border-radius: 20px;
+     background-color: rgba(255, 255, 255, 0.45);
+     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+     backdrop-filter: blur(15px);
+     text-align: center;
+ }
 
-    max-width: 500px;
+/* Image container styles */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 300px;
-    padding: 35px;
-
-    border: 1px solid rgba(255, 255, 255, .25);
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.45);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
-
-    backdrop-filter: blur(15px);
 }
 
-.card-container {
-    display: flex;
-    overflow-x: auto;
-    white-space: wrap;
-}
-
-.card-row .card {
-    margin-right: 15px; /* Adjust the margin as needed */
-    flex: 0 0 auto;
+.img-fluid {
+    max-height: 100%;
+    width: auto;
 }
 
 .card {
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.45);
 }
 
 .card-body {
@@ -155,6 +158,18 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+/* Hover effects */
+.card:hover {
+    border-color: #008bf8;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.95);
+}
+
+.card:hover .btn {
+    transform: translateY(-5px);
+    opacity: 1;
+}
+
 
 /* CSS */
 .button-86 {

@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Products</title>
+    <title>Search Products</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/list.css}" rel="stylesheet">
 </head>
 <body>
 
 <!-- Navbar -->
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
-<div class="container">
-    <h2>Searching results for: <span th:text="${searchtitle}"></span></h2>
+<div class="container mb-5">
+    <h2 class="text-center text-shadow mb-4">Searching results for: <span th:text="${searchtitle}"></span></h2>
     <div class="row">
-        <div class="col-md-3" th:each="search : ${searchResults}">
-            <div class="card mb-4">
-                <img th:src="${search.imageLinks}" class="card-img-top" alt="Book Cover">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${search.title}">Book Title</h5>
+        <div class="col-md-3 mb-4" th:each="search : ${searchResults}">
+            <div class="card h-100">
+                <img th:src="${search.imageLinks}" class="card-img-top" style="height: 299px; width: 254px;" alt="Book Cover">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-truncate" th:text="${search.title}">Book Title</h5>
                     <p class="card-text" th:text="${search.author}">Author Name</p>
-                    <p class="card-text" th:text="${search.listPrice} + ' ' + ${search.listPriceCurrency}">Price</p>
-                    <a th:href="@{/search/{id}(id=${search.id})}" class="btn btn-primary btn-block">View More</a>
+                    <div class="fs-5 mb-3">
+                        <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(search.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
+                        <span th:text="'RM ' + ${#numbers.formatDecimal(search.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+                    </div>
+                    <a th:href="@{/product/{id}(id=${search.id})}" class="btn btn-primary mt-auto">More Info</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<div th:replace="~{footer :: footerTemplate}"></div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 

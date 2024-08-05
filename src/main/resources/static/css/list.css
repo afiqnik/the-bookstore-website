@@ -10,6 +10,7 @@
 .card {
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.45);
 }
 
 .card-body {
@@ -26,4 +27,15 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+/* Hover effects */
+.card:hover {
+    border-color: #008bf8;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.95);
+}
+
+.card:hover .btn {
+    transform: translateY(-5px);
+    opacity: 1;
 }

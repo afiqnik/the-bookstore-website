@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Error</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -9,9 +9,16 @@
 <!-- Navbar -->
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
-<div class="container">
+<div class="container mb-5" style="padding-top: 100px;">
     <h2>Error</h2>
-    <p th:text="${errorMessage}">An unexpected error occurred.</p>
+    <div class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}">An unexpected error occurred. Please try again later.</p>
+        <p>If you continue to experience issues, please contact our support team for assistance.</p>
+    </div>
 </div>
+
+<!-- Footer -->
+<div th:replace="~{footer :: footerTemplate}"></div>
+
 </body>
 </html>

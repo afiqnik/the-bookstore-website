@@ -6,7 +6,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/index.css}" rel="stylesheet">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <title>Bookstore Home Page</title>
+    <title>The Bookstore</title>
 </head>
 <body>
 
@@ -29,23 +29,22 @@
     </div>
 </div>
 
+<!-- HTML -->
 <div class="container">
     <!-- About Us Section -->
     <section id="about-us" style="margin-top: 30px;">
-        <div class="text-center" style="height: 80px;">
+        <div class="text-center text-shadow2 mt-2" style="height: 80px;">
             <h2>About Us</h2>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div style="display: flex; align-items: center; height: 100%;">
-                    <img src="/images/library.jpg" class="img-fluid" alt="About Us Image" style="max-height: 100%;">
+                <div class="image-container">
+                    <img src="/images/library.jpg" class="img-fluid" alt="About Us Image">
                 </div>
             </div>
             <div class="col-md-6 card-about">
                 <p>
                     Our bookstore is a haven for book lovers, offering a wide range of genres to satisfy every reader's taste.
-                </p>
-                <p>
                     Join us on our journey to explore new worlds, discover hidden gems, and lose yourself in the magic of books.
                 </p>
             </div>
@@ -53,25 +52,24 @@
     </section>
 </div>
 
-
 <div class="container">
     <!-- New Arrivals Section -->
     <section>
-        <div class="text-center" style=" height: 80px;">
-            <h2>New Arrivals</h2>
+        <div class="text-center" style=" height: 80px; margin-top: 50px;">
+            <h2 class="text-center text-shadow2 mb-4">New Arrivals</h2>
         </div>
-        <div class="card-container">
-            <div class="col-md-3" th:each="product : ${newArrivals}">
-                <div class="card mb-4">
-                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 250px;" alt="Book Cover">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${product.title}">Book Title</h5>
+        <div class="row">
+            <div class="col-md-3 mb-4" th:each="product : ${newArrivals}">
+                <div class="card h-100">
+                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 254px;" alt="Book Cover">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate" th:text="${product.title}">Book Title</h5>
                         <p class="card-text" th:text="${product.author}">Author Name</p>
-                        <div class="fs-5 mb-5">
+                        <div class="fs-5 mb-3">
                             <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
                             <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
                         </div>
-                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary btn-block">View More</a>
+                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary mt-auto">More Info</a>
                     </div>
                 </div>
             </div>
@@ -82,25 +80,26 @@
           </div>
     </section>
 </div>
-<div class="container">
+
+<div class="container mb-5">
     <!-- Best Sellers Section -->
-    <div class="text-center" style="margin-top: 30px ; height: 80px;">
+    <div class="text-center text-shadow2 mb-4" style="margin-top: 50px ; height: 80px;">
         <h2>Best Sellers</h2>
     </div>
     <section>
-        <div class="card-container">
-            <div class="col-md-3" th:each="product : ${bestSellers}">
-                <div class="card mb-4">
-                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 250px;" alt="Book Cover">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${product.title}">Book Title</h5>
+        <div class="row">
+            <div class="col-md-3 mb-4" th:each="product : ${bestSellers}">
+                <div class="card h-100">
+                    <img th:src="@{${product.imageLinks}}" class="card-img-top" style="height: 299px; width: 254px;" alt="Book Cover">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate" th:text="${product.title}">Book Title</h5>
                         <p class="card-text" th:text="${product.author}">Author Name</p>
-                        <div class="fs-5 mb-5">
+                        <div class="fs-5 mb-3">
                             <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
                             <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
                         </div>
 
-                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary btn-block">View More</a>
+                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary mt-auto">More Info</a>
                     </div>
                 </div>
             </div>
@@ -109,12 +108,10 @@
             <a href="/best-sellers" class="btn btn-secondary">View More in this Section</a>
           </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="mt-4 text-center">
-        <p>&copy; 2024 Bookstore</p>
-    </footer>
 </div>
+
+<!-- Footer -->
+<div th:replace="~{footer :: footerTemplate}"></div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

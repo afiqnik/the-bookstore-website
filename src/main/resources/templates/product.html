@@ -9,9 +9,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
         h2 {
             font-size: 2rem;
             margin-bottom: 20px;
+        }
+
+        .product-image {
+            max-width: 40%;
+            height: 40%;
+        }
+
+        .btn-back:hover {
+            background-color: lightsalmon;
+            color: black;
+        }
+
+        .btn-add-to-cart:hover {
+            background-color: lightgreen;
+            color: black;
         }
     </style>
 </head>
@@ -20,36 +39,41 @@
 <!-- Navbar -->
 <div th:replace="~{navbar :: navbarTemplate}"></div>
 
-        <!-- Product section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center" >
-                    <div class="col-md-6 d-flex justify-content-center" >
-                        <img class="card-img-top mb-5 mb-md-0" th:src="${product.imageLinks}" alt="Book Cover">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="small mb-1">
-                            <p>ISBN: <span th:text="${product.isbnIdentifier}">ISBN Identifier</span></p>
-                        </div>
-                        <h2 class="display-5 fw-bolder" th:text="${product.title}">Book Title</h2>
-                        <div class="fs-5 mb-5">
-                            <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
-                            <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
-                        </div>
-                        <h3 class="lead"><strong>Author:</strong> <span th:text="${product.author}">Author Name</span></h3>
-                        <h3 class="lead"><strong>Publisher:</strong> <span th:text="${product.publisher}">Publisher</span></h3>
-                        <h3 class="lead"><strong>Publication Date:</strong> <span th:text="${#dates.format(product.publishedDate, 'yyyy-MM-dd')}">Publication Date</span></h3>
-                        <h3 class="lead"><strong>Page Count:</strong> <span th:text="${product.pageCount}">Page Count</span></h3>
-                        <h3 class="lead"><strong>Language:</strong> <span th:text="${product.language}">Language</span></h3>
-                        <h3 class="lead"><strong>Category:</strong> <span th:text="${product.categories}">Categories</span></h3>
-                        <h3 class="lead" th:text="${product.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</h3>
-                        <div class="d-flex">
-                            <a  class="btn btn-outline-dark flex-shrink-0" href="/products">Back to Products</a>
-                            <a class="btn btn-outline-dark flex-shrink-0" th:href="@{/addToCart/{id}(id=${product.id})}"><i class="bi-cart-fill me-1"></i>Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+<!-- Product section-->
+<section class="py-5 mb-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 d-flex justify-content-center">
+                <img class="product-image card-img-top mb-5 mb-md-0" th:src="${product.imageLinks}" alt="Book Cover">
             </div>
-        </section>
+            <div class="col-md-6">
+                <div class="small mb-1">
+                    <p>ISBN: <span th:text="${product.isbnIdentifier}">ISBN Identifier</span></p>
+                </div>
+                <h2 class="display-5 fw-bolder" th:text="${product.title}">Book Title</h2>
+                <div class="fs-5 mb-5">
+                    <span style="text-decoration: line-through" th:text="'RM ' + ${#numbers.formatDecimal(product.retailPrice, 0, 'COMMA', 2, 'POINT')}">$45.00</span>
+                    <span th:text="'RM ' + ${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+                </div>
+                <h3 class="lead"><strong>Author:</strong> <span th:text="${product.author}">Author Name</span></h3>
+                <h3 class="lead"><strong>Publisher:</strong> <span th:text="${product.publisher}">Publisher</span></h3>
+                <h3 class="lead"><strong>Publication Date:</strong> <span th:text="${#dates.format(product.publishedDate, 'yyyy-MM-dd')}">Publication Date</span></h3>
+                <h3 class="lead"><strong>Page Count:</strong> <span th:text="${product.pageCount}">Page Count</span></h3>
+                <h3 class="lead"><strong>Language:</strong> <span th:text="${product.language}">Language</span></h3>
+                <h3 class="lead"><strong>Category:</strong> <span th:text="${product.categories}">Categories</span></h3>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <h3 class="lead" th:text="${product.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</h3>
+        </div>
+        <div class="container mt-4 d-flex justify-content-between">
+            <a class="btn btn-outline-dark flex-shrink-0 btn-back" href="/products">Back to Products</a>
+            <a class="btn btn-outline-dark flex-shrink-0 btn-add-to-cart" th:href="@{/addToCart/{id}(id=${product.id})}"><i class="bi-cart-fill me-1"></i>Add to cart</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{footer :: footerTemplate}"></div>
+
 </body>
 </html>

@@ -10,10 +10,14 @@
     <style>
         body {
             background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             padding-top: 100px;
+            flex: 1;
         }
 
         .modal {
@@ -138,7 +142,9 @@
             <td><a href="/" class="btn btn-continue-shopping">Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center"><strong>Total RM <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span></strong></td>
-            <td><a onclick="showConfirmation()" class="btn btn-checkout btn-block">Checkout</a></td>
+            <td>
+                <button id="checkoutButton" class="btn btn-checkout btn-block">Checkout</button>
+            </td>
         </tr>
         </tfoot>
     </table>
@@ -164,7 +170,7 @@
 <div id="successMessage" class="text-center">Order Successful! Redirecting to Order Summary...</div>
 
 <!-- Footer -->
-<!--<div th:replace="~{footer :: footerTemplate}"></div>-->
+<div th:replace="~{footer :: footerTemplate}"></div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -174,6 +180,7 @@
     }
 
     function confirmAction() {
+        document.getElementById('successMessage').style.display = 'block';
         setTimeout(function() {
             window.location.href = '/createOrder';
         }, 2000); // 2-second delay before redirect
@@ -191,6 +198,18 @@
             modal.style.display = 'none';
         }
     }
+
+    // Disable checkout button if cart is empty
+    document.addEventListener('DOMContentLoaded', function() {
+        var cartItems = /*[[${cart}]]*/ [[${#lists.size(cart)}]]; // This is a Thymeleaf variable for cart size
+        var checkoutButton = document.getElementById('checkoutButton');
+        if (cartItems === 0) {
+            checkoutButton.disabled = true;
+            checkoutButton.title = 'Your cart is empty';
+        } else {
+            checkoutButton.addEventListener('click', showConfirmation);
+        }
+    });
 </script>
 </body>
 </html>

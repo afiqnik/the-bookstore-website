@@ -1,11 +1,20 @@
 /* Footer styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.content {
+    flex: 1;
+}
+
 .footer {
     background-color: rgba(0, 0, 0, 0.95) !important; /* 95% transparency */
     color: white;
     padding: 20px 0;
     transition: background-color 0.3s, color 0.3s;
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 

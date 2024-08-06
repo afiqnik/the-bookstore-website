@@ -21,17 +21,17 @@ public class Product {
     private String description;
     private String isbnIdentifier;
     private Integer pageCount;
-    private Integer quantity;
-    private String printType;
+//    private Integer quantity;
+//    private String printType;
     private String categories;
-    private Double averageRating;
-    private Integer ratingsCount;
+//    private Double averageRating;
+//    private Integer ratingsCount;
     private String language;
     private String imageLinks;
     private Double listPrice;
-    private String listPriceCurrency;
+//    private String listPriceCurrency;
     private Double retailPrice;
-    private String retailPriceCurrency;
+//    private String retailPriceCurrency;
     private Boolean isBestseller;
     private Boolean isNewArrival;
 }

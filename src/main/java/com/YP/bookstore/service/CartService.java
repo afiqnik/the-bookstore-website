@@ -14,10 +14,12 @@ import com.YP.bookstore.model.User;
 import com.YP.bookstore.repository.ProductRepository;
 import com.YP.bookstore.repository.UserRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class CartService {
-    
+    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
 
     @Autowired
     private CartRepository cartRepository;
@@ -81,23 +83,29 @@ public class CartService {
             cart.setProduct(product);
             cart.setPrice(product.getListPrice());
             cart.setQuantity(1);
+            logger.info("Adding cart to user with product id not added before");
         }
         else{
-            if(cartstatus.getOrder()!=null){
+            if(cartstatus.getOrder()!=null&&cartstatus.getQuantity()==0){
                 cart=new CartItem();
                 cart.setUser(user);
                 cart.setProduct(product);
                 cart.setPrice(product.getListPrice());
                 cart.setQuantity(1);
-            }else if(cartstatus.getOrder()==null){
-                cart=cartstatus;
-                cart.setQuantity(cart.getQuantity()+1);
-                cart.setPrice(cart.getPrice()+product.getListPrice());    
-            }else{
+                logger.info("Adding cart to user with product id already added before");
+            }
+            else if(cartstatus.getOrder()!=null&&cartstatus.getQuantity()>=1){
                 cart=cartstatus;
                 cart.setQuantity(cart.getQuantity()+1);
                 cart.setPrice(cart.getPrice()+product.getListPrice());
+                logger.info("Adding quantity of cart to user with product id already added before");
 
+            }
+            else{
+                cart=cartstatus;
+                cart.setQuantity(cart.getQuantity()+1);
+                cart.setPrice(cart.getPrice()+product.getListPrice());
+                logger.info("Adding quantity of cart to user with product id not added before");
             }
             
             }

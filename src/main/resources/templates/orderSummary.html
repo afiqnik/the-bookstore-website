@@ -5,10 +5,11 @@
     <title>Order Summary</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            padding: 100px 0;
+            padding: 0 0;
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
         }
@@ -58,7 +59,7 @@
             <td th:text="${cart.product.title}"></td>
             <td th:text="${cart.product.author}"></td>
             <td th:text="${cart.quantity}"></td>
-            <td th:text="'RM ' + ${cart.price}"></td>
+            <td th:text="'RM ' + ${#numbers.formatDecimal(cart.price, 0, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         </tbody>
     </table>
@@ -69,7 +70,7 @@
 </div>
 
 <!-- Footer -->
-<div th:replace="~{footer :: footerTemplate}"></div>
+<!--<div th:replace="~{footer :: footerTemplate}"></div>-->
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

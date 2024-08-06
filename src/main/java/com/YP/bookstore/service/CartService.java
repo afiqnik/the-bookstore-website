@@ -1,15 +1,12 @@
 package com.YP.bookstore.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.YP.bookstore.controller.ProductController;
 import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.repository.CartRepository;
 import com.YP.bookstore.model.Product;
@@ -17,11 +14,9 @@ import com.YP.bookstore.model.User;
 import com.YP.bookstore.repository.ProductRepository;
 import com.YP.bookstore.repository.UserRepository;
 
-
 @Service
 public class CartService {
     
-
     @Autowired
     private CartRepository cartRepository;
 
@@ -82,6 +77,7 @@ public class CartService {
             cart.setProduct(product);
             cart.setPrice(product.getListPrice());
             cart.setQuantity(1);
+            logger.info("Adding cart to user with product id not added before");
         }
         else{
             logger.info("Adding quantity for cart item already added to cart");

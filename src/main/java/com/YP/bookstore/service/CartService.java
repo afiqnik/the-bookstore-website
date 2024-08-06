@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.YP.bookstore.controller.ProductController;
 import com.YP.bookstore.model.CartItem;
 import com.YP.bookstore.repository.CartRepository;
 import com.YP.bookstore.model.Product;
@@ -28,11 +31,7 @@ public class CartService {
     @Autowired
     private UserRepository userRepository;
 
-
-    // public CartItem getCartbyUser(Integer id){
-    //     CartItem cart = cartRepository.findById(id);
-    //     return cart;
-    // }
+    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
 
     public void updateQuantity(Long id, String action){
 
@@ -69,13 +68,15 @@ public class CartService {
         return cartRepository.findByUserId(id);
     }
 
-    public CartItem addtoCart(Long productID,Long userID) {
+    public CartItem addtoCart(Long productID,Long userID,Long orderID) {
         Product product = productRepository.findById(productID).get();
         User user = userRepository.findById(userID).get();
-        CartItem cartstatus = cartRepository.findByProductIdAndUserId(productID,userID);
+        CartItem cartstatus = cartRepository.findByProductIdAndUserIdAndOrderId(productID,userID,orderID);
+        logger.info("Cart items received : "+cartstatus);
         CartItem cart=null;
         
         if(ObjectUtils.isEmpty(cartstatus)){
+            logger.info("Creating cart for user");
             cart=new CartItem();
             cart.setUser(user);
             cart.setProduct(product);
@@ -83,30 +84,15 @@ public class CartService {
             cart.setQuantity(1);
         }
         else{
-            if(cartstatus.getOrder()!=null){
-                cart=new CartItem();
-                cart.setUser(user);
-                cart.setProduct(product);
-                cart.setPrice(product.getListPrice());
-                cart.setQuantity(1);
-            }else if(cartstatus.getOrder()==null){
-                cart=cartstatus;
-                cart.setQuantity(cart.getQuantity()+1);
-                cart.setPrice(cart.getPrice()+product.getListPrice());    
-            }else{
-                cart=cartstatus;
-                cart.setQuantity(cart.getQuantity()+1);
-                cart.setPrice(cart.getPrice()+product.getListPrice());
-
-            }
-            
+            logger.info("Adding quantity for cart item already added to cart");
+            cart=cartstatus;
+            cart.setQuantity(cart.getQuantity()+1);
+            cart.setPrice(cart.getPrice()+product.getListPrice());
             }
         CartItem saveCart = cartRepository.save(cart);
-
         return saveCart;
 
     }
-
     public void deleteCart(Long id) {
         CartItem cart = cartRepository.findById(id).orElse(null);
         cartRepository.delete(cart);

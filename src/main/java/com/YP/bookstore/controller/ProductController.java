@@ -160,7 +160,6 @@ public class ProductController {
             model.addAttribute("total", total);
 
             return "/User/cart";
-
         }
         return "redirect:/login";
     }
@@ -175,7 +174,7 @@ public class ProductController {
 
             logger.info("Adding product " + product.getId() + " to cart");
 
-            cartService.addtoCart(id, user.getId());
+            cartService.addtoCart(id, user.getId(),null);
             return "redirect:/cart";
         }
 

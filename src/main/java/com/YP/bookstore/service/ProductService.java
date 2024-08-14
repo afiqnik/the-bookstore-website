@@ -9,34 +9,62 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * ProductService handles all business logic related to products.
+ */
 @Service
-public class  ProductService {
+public class ProductService {
+
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private CartRepository cartRepository;
 
-
+    /**
+     * Retrieves all products from the repository.
+     *
+     * @return a list of all products.
+     */
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    // Method to get a product by its ID
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param id the ID of the product.
+     * @return the product with the given ID, or null if not found.
+     */
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    // Method to get a product by its bestseller status
+    /**
+     * Retrieves a list of products that are marked as bestsellers.
+     *
+     * @return a list of bestseller products.
+     */
     public List<Product> getBestsellerProducts() {
         return productRepository.findByIsBestsellerTrue();
     }
 
-    // Method to get a product by its new arrivals status
+    /**
+     * Retrieves a list of products that are marked as new arrivals.
+     *
+     * @return a list of new arrival products.
+     */
     public List<Product> getNewArrivalsProducts() {
         return productRepository.findByIsNewArrivalTrue();
     }
 
+    /**
+     * Searches for books by title or author.
+     * 
+     * @param title  the title of the book.
+     * @param author the author of the book.
+     * @return a list of books that match the search criteria.
+     */
     public List<Product> searchBooks(String title, String author) {
         return productRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(title, author);
     }

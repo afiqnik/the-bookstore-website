@@ -175,41 +175,45 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Function to display the confirmation modal
     function showConfirmation() {
         document.getElementById('customModal').style.display = 'block';
     }
 
+    // Function to handle the confirmation action
     function confirmAction() {
-        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'block'; // Display success message
         setTimeout(function() {
-            window.location.href = '/createOrder';
+            window.location.href = '/createOrder'; // Redirect to createOrder after 2 seconds
         }, 2000); // 2-second delay before redirect
-        closeModal();
+        closeModal(); // Close the modal
     }
 
+    // Function to close the modal
     function closeModal() {
-        document.getElementById('customModal').style.display = 'none';
+        document.getElementById('customModal').style.display = 'none'; // Hide the modal
     }
 
     // Close modal when clicking outside of it
     window.onclick = function(event) {
         var modal = document.getElementById('customModal');
         if (event.target == modal) {
-            modal.style.display = 'none';
+            modal.style.display = 'none'; // Hide the modal if the user clicks outside of it
         }
     }
 
-    // Disable checkout button if cart is empty
+    // Disable checkout button if cart is empty and set up event listener for checkout button
     document.addEventListener('DOMContentLoaded', function() {
-        var cartItems = /*[[${cart}]]*/ [[${#lists.size(cart)}]]; // This is a Thymeleaf variable for cart size
+        var cartItems = /*[[${cart}]]*/ [[${#lists.size(cart)}]]; // Thymeleaf variable for cart size
         var checkoutButton = document.getElementById('checkoutButton');
         if (cartItems === 0) {
-            checkoutButton.disabled = true;
-            checkoutButton.title = 'Your cart is empty';
+            checkoutButton.disabled = true; // Disable the button if cart is empty
+            checkoutButton.title = 'Your cart is empty'; // Tooltip for disabled button
         } else {
-            checkoutButton.addEventListener('click', showConfirmation);
+            checkoutButton.addEventListener('click', showConfirmation); // Add click event to show confirmation modal
         }
     });
 </script>
+
 </body>
 </html>

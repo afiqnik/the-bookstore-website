@@ -19,15 +19,24 @@ import lombok.Data;
 @Entity
 public class Orders {
 
+    // Primary key for the Orders entity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // One-to-Many relationship with CartItem, mapped by the "order" field in
+    // CartItem
     @OneToMany(mappedBy = "order")
     private List<CartItem> cart;
+
+    // Many-to-One relationship with User, join column named "userID", non-nullable
     @ManyToOne
-    @JoinColumn(name="userID",unique = false,nullable = false)
+    @JoinColumn(name = "userID", unique = false, nullable = false)
     private User user;
-    // private Integer price;
+
+    // Total price of the order
     private Double totalprice;
+
+    // Date when the order was placed
     private LocalDate orderdate;
 }

@@ -39,13 +39,15 @@ public class ProductController {
     @Autowired
     private OrderService orderService;
 
+    // Retrieves user details based on the current principal
     private User getUserDetails(Principal principal) {
         String username = principal.getName();
         User user = userService.findByUsername(username);
-
         return user;
     }
 
+    // Adds login/logout attribute to the model based on user's authentication
+    // status
     @ModelAttribute
     public void addAttribute(Principal principal, Model model) {
         String login = "Login";
@@ -57,6 +59,7 @@ public class ProductController {
         }
     }
 
+    // Handles the request to list all products
     @GetMapping("/products")
     public String listProducts(Model model) {
         try {
@@ -71,6 +74,7 @@ public class ProductController {
         }
     }
 
+    // Handles the request to view details of a single product
     @GetMapping("/product/{id}")
     public String viewProduct(@PathVariable Long id, Model model) {
         try {
@@ -89,6 +93,7 @@ public class ProductController {
         }
     }
 
+    // Handles the request to view new arrival products
     @GetMapping("/new-arrivals")
     public String viewNewArrivalsProducts(Model model) {
         try {
@@ -107,6 +112,7 @@ public class ProductController {
         }
     }
 
+    // Handles the request to view bestseller products
     @GetMapping("/best-sellers")
     public String viewBestsellerProducts(Model model) {
         try {
@@ -125,6 +131,7 @@ public class ProductController {
         }
     }
 
+    // Handles the request to search for books by title
     @GetMapping("/search")
     public String searchBooks(@RequestParam(name = "title") String title, Model model) {
         List<Product> searchResults = productService.searchBooks(title, title);
@@ -134,6 +141,7 @@ public class ProductController {
         return "/searchResults";
     }
 
+    // Handles the request to view the cart
     @GetMapping("/cart")
     public String viewCarts(Model model, Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -164,6 +172,7 @@ public class ProductController {
         return "redirect:/login";
     }
 
+    // Handles the request to add a product to the cart
     @RequestMapping("/addToCart/{id}")
     public String addtoCart(@PathVariable Long id, Principal p) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -174,13 +183,14 @@ public class ProductController {
 
             logger.info("Adding product " + product.getId() + " to cart");
 
-            cartService.addtoCart(id, user.getId(),null);
+            cartService.addtoCart(id, user.getId(), null);
             return "redirect:/cart";
         }
 
         return "redirect:/login";
     }
 
+    // Handles the request to update the quantity of an item in the cart
     @RequestMapping("/updateQuantity/{id}/{action}")
     public String updateQuantity(@PathVariable Long id, @PathVariable String action) {
 
@@ -189,12 +199,14 @@ public class ProductController {
         return "redirect:/cart";
     }
 
+    // Handles the request to delete an item from the cart
     @RequestMapping("/deleteCart/{id}")
     public String deleteCart(@PathVariable Long id) {
         cartService.deleteCart(id);
         return "redirect:/cart";
     }
 
+    // Handles the request to create an order
     @RequestMapping("/createOrder")
     public String userOrder(Model model, Principal principal) {
         logger.info("Creating order...");
@@ -215,6 +227,7 @@ public class ProductController {
         return "orderSummary";
     }
 
+    // Handles the request to view the user's orders
     @RequestMapping("/order")
     public String viewOrder(Model model, Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

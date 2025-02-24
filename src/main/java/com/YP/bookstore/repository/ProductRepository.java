@@ -32,7 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * (case-insensitive).
      * 
      * @param title  the title string to search for.
-     * @param author the author string to search for.
+     * @param Author the author string to search for.
      * @return a list of products with matching title or author.
      */
     List<Product> findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(String title, String Author);

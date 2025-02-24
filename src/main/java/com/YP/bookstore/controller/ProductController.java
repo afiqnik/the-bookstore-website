@@ -167,7 +167,7 @@ public class ProductController {
             }
             model.addAttribute("total", total);
 
-            return "/User/cart";
+            return "User/cart";
         }
         return "redirect:/login";
     }

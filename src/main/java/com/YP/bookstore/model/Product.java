@@ -1,9 +1,6 @@
 package com.YP.bookstore.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -41,6 +38,7 @@ public class Product {
     private Date publishedDate;
 
     // A brief description of the book.
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     // The ISBN identifier of the book.

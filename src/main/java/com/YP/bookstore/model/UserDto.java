@@ -2,10 +2,14 @@ package com.YP.bookstore.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 // Lombok annotations to generate getters and setters
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     // Private member variables to store user information
@@ -14,25 +18,13 @@ public class UserDto {
     private String fullname;
     private String email;
     private String address;
-    private String CardDetails;
-
-    // Constructor to initialize the UserDto object
-    public UserDto(String username, String password, String fullname, String email, String address,
-            String CardDetails) {
-        super(); // Calls the superclass constructor (Object class in this case)
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.email = email;
-        this.address = address;
-        this.CardDetails = CardDetails;
-    }
+    private String cardDetails;
 
     // Override the toString method to provide a string representation of the
     // UserDto object
     @Override
     public String toString() {
         return "UserDto [username=" + username + ", password=" + password + ", fullname=" + fullname + " , email="
-                + email + ", address=" + address + " , CardDetails=" + CardDetails + "]";
+                + email + ", address=" + address + " , CardDetails=" + cardDetails + "]";
     }
 }

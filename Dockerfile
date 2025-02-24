@@ -6,17 +6,20 @@ WORKDIR /app
 
 # Copy the Maven wrapper and dependencies
 COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+COPY mvnw ./
+COPY pom.xml ./
+
+# Fix line endings for UNIX systems
+RUN apt-get update && apt-get install -y dos2unix && dos2unix mvnw
 
 # Grant execution permissions to the Maven wrapper
 RUN chmod +x mvnw
 
-# Build the application
-RUN ./mvnw dependency:resolve
-RUN ./mvnw package -DskipTests
+# Install Maven dependencies and build the application
+RUN ./mvnw clean package -DskipTests
 
-# Copy the generated JAR file
-COPY target/*.jar app.jar
+# Copy the generated JAR file explicitly
+COPY target/bookstore-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose port 8080
 EXPOSE 8080

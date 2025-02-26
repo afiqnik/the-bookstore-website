@@ -138,7 +138,7 @@ public class ProductController {
         logger.info("Product retrieved: " + searchResults.size());
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchtitle", title);
-        return "/searchResults";
+        return "searchResults";
     }
 
     // Handles the request to view the cart

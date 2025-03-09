@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:9.2.0
-    container_name: mysql_bookstore_db
+    container_name: mysql_bookstore_db2
     environment:
       MYSQL_ROOT_PASSWORD: 53cret
       MYSQL_DATABASE: bookstore
